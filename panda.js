@@ -28,7 +28,7 @@ export function beginExpandAnimation(host, event){
     host.contracting = true;
     var detail = getInternalEventDetailElement(event);
     var target = getInternalEventTarget(event);
-    if(host.expanded) detail.style.marginBottom = target.offsetHeight;
+    if(host.expanded) detail.style.marginBottom = target.offsetHeight+'px';
     else detail.style.marginBottom = 0;
     setTimeout(function(){
         endExpandAnimation(host)
@@ -43,9 +43,12 @@ export const ExPandaItem = {
   name: property('just a test'),
   expanded: property(false),
   contracting: false,
+  extra_classes: ({expanded, contracting}) =>
+    ((expanded && 'expanded') || 'contracted')+
+    ' '+((contracting && 'trxing') || 'trxed' ),
   bottom: 0,
   host: parent(el => (el === ExPandaList) || (el === ExPandaGroup)),
-  render: ({ name, expanded, contracting }) => html`
+  render: ({ name, expanded, contracting, extra_classes }) => html`
       <style>
           li{
               -webkit-transition: margin-bottom 0.1s;
@@ -134,7 +137,7 @@ export const ExPandaItem = {
       </li>
       ${(expanded || contracting) && html`
           <li
-            class="ex-panda-detail-container ${(expanded && 'expanded') || 'contracted'} ${(contracting && 'trxing') || 'trxed' }"
+            class="ex-panda-detail-container ${extra_classes}"
             onanimationstart="${beginExpandAnimation}"
             onanimationend="${endExpandAnimation}"
           >
@@ -170,11 +173,12 @@ define('ex-panda-list', ExPandaList);
 export const ExPandaGroup = {
   name: property('something'),
   bg: property('grey'),
+  bg_size: property(''),
   color: property('black'),
   threshold: property(4),
   host: parent(el => (el === ExPandaList) || (el === ExPandaGroup)),
   items: children(ExPandaItem),
-  render: ({ name, list, bg, color, items, threshold }) => html`
+  render: ({ name, list, bg, color, items, threshold, bg_size }) => html`
     <style>
         ul{
             padding:0px;
@@ -200,14 +204,16 @@ export const ExPandaGroup = {
 
         .header{
             background : ${bg};
-            color : ${color},
+            ${bg_size && 'background-size:'+bg_size};
+            color : ${color};
             border: 1px solid ${bg};
             height :2em;
         }
 
         .terminal{
             background : ${bg};
-            color : ${color},
+            ${bg_size && 'background-size:'+bg_size};
+            color : ${color};
             border: 1px solid ${bg};
             height :1.5em;
         }
@@ -218,7 +224,7 @@ export const ExPandaGroup = {
 
         .terminal a{
             text-decoration : none;
-            color: ${color},
+            color: ${color}
         }
 
         .terminal a:hover{
@@ -247,8 +253,7 @@ export const ExPandaGroup = {
         </li>
         <slot></slot>
         <li class="terminal-container">
-            <div class="terminal">
-                ${console.log('@@', items.length)}
+            <div class="terminal">=
                 ${items.length > threshold && html`
                     <span class="icon">⇧</span><a href="">back to group</a>
                 `}

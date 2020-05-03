@@ -1,31 +1,31 @@
 {
- "name": "ex-panda",
- "version": "0.0.3",
- "main": "panda.js",
- "description": "An expanding list as a WebComponent",
- "keywords": [
-   "ui",
-   "webcomponent",
-   "expanding",
-   "list",
-   "accordion",
-   "browser"
- ],
- "author": "Abbey Hawk Sparrow <@khrome> (http://patternweaver.com)",
- "contributors": [],
- "bugs": {
-   "url": "https://github.com/khrome/ex-panda/issues"
- },
- "license": "MIT",
- "repository": {
-   "type": "git",
-   "url": "git://github.com/khrome/ex-panda.git"
- },
- "dependencies": {
-  "hybrids": "^4.1.8"
- },
- "scripts": {
-  "serve": "npx node-static -p 8080"
- },
- "devDependencies": {}
+  "name": "ex-panda",
+  "version": "0.0.4",
+  "main": "panda.js",
+  "description": "An expanding list as a WebComponent",
+  "keywords": [
+    "ui",
+    "webcomponent",
+    "expanding",
+    "list",
+    "accordion",
+    "browser"
+  ],
+  "author": "Abbey Hawk Sparrow <@khrome> (http://patternweaver.com)",
+  "contributors": [],
+  "bugs": {
+    "url": "https://github.com/khrome/ex-panda/issues"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/khrome/ex-panda.git"
+  },
+  "dependencies": {
+    "hybrids": "^4.1.8"
+  },
+  "scripts": {
+    "serve": "npx node-static -p 8080"
+  },
+  "devDependencies": {}
 }
