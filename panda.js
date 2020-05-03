@@ -114,10 +114,12 @@ export const ExPandaItem = {
 
           @-webkit-keyframes slidedown {
               from {
-                  margin-top: -200px; /* MAX HEIGHT */
+                  margin-top: -50px; /* MAX HEIGHT */
+                  opacity: 0;
               }
               to {
                   margin-top: 0px;
+                  opacity: 1;
               }
           }
 
@@ -126,7 +128,7 @@ export const ExPandaItem = {
                   margin-top: 0px;
               }
               to {
-                  margin-top: -200px;
+                  margin-top: -50px;
               }
           }
       </style>
