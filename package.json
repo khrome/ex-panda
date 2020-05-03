@@ -1,0 +1,12 @@
+{
+    "name": "ex-panda",
+    "vaersion": "0.0.1",
+    "dependencies": {
+        "hybrids": "^4.1.8"
+    },
+    "scripts": {
+        "serve": "npx node-static -p 8080"
+    },
+    "devDependencies": {
+    }
+}

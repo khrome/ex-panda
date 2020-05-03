@@ -1,0 +1,103 @@
+<html>
+    <head>
+        <script src="https://unpkg.com/hybrids@4.1.8/dist/hybrids.js"></script>
+        <script>
+            window.require = function(name){ return hybrids; }
+            window.loremIpsum = function(min, max){
+                if(!min) min = 10;
+                if(!max) max = 100;
+                var words = ["lorem","ipsum","dolor","sit","amet,","consectetur","adipisicing","elit,","sed","do","eiusmod","tempor","incididunt","ut","labore","et","dolore","magna","aliqua.","enim","ad","minim","veniam,","quis","nostrud","exercitation","ullamco","laboris","nisi","ut","aliquip","ex","ea","commodo","consequat.","duis","aute","irure","dolor","in","reprehenderit","in","voluptate","velit","esse","cillum","dolore","eu","fugiat","nulla","pariatur.","excepteur","sint","occaecat","cupidatat","non","proident,","sunt","in","culpa","qui","officia","deserunt","mollit","anim","id","est","laborum.","sed","ut","perspiciatis,","unde","omnis","iste","natus","error","sit","voluptatem","accusantium","doloremque","laudantium,","totam","rem","aperiam","eaque","ipsa,","quae","ab","illo","inventore","veritatis","et","quasi","architecto","beatae","vitae","dicta","sunt,","explicabo.","nemo","enim","ipsam","voluptatem,","quia","voluptas","sit,","aspernatur","aut","odit","aut","fugit,","sed","quia","consequuntur","magni","dolores","eos,","qui","ratione","voluptatem","sequi","nesciunt,","neque","porro","quisquam","est,","qui","dolorem","ipsum,","quia","dolor","sit,","amet,","consectetur,","adipisci","velit,","sed","quia","non","numquam","eius","modi","tempora","incidunt,","ut","labore","et","dolore","magnam","aliquam","quaerat","voluptatem.","ut","enim","ad","minima","veniam,","quis","nostrum","exercitationem","ullam","corporis","suscipit","laboriosam,","nisi","ut","aliquid","ex","ea","commodi","consequatur?","quis","autem","vel","eum","iure","reprehenderit,","qui","in","ea","voluptate","velit","esse,","quam","nihil","molestiae","consequatur,","vel","illum,","qui","dolorem","eum","fugiat,","quo","voluptas","nulla","pariatur?","at","vero","eos","et","accusamus","et","iusto","odio","dignissimos","ducimus,","qui","blanditiis","praesentium","voluptatum","deleniti","atque","corrupti,","quos","dolores","et","quas","molestias","excepturi","sint,","obcaecati","cupiditate","non","provident,","similique","sunt","in","culpa,","qui","officia","deserunt","mollitia","animi,","id","est","laborum","et","dolorum","fuga.","harum","quidem","rerum","facilis","est","et","expedita","distinctio.","Nam","libero","tempore,","cum","soluta","nobis","est","eligendi","optio,","cumque","nihil","impedit,","quo","minus","id,","quod","maxime","placeat,","facere","possimus,","omnis","voluptas","assumenda","est,","omnis","dolor","repellendus.","temporibus","autem","quibusdam","aut","officiis","debitis","aut","rerum","necessitatibus","saepe","eveniet,","ut","et","voluptates","repudiandae","sint","molestiae","non","recusandae.","itaque","earum","rerum","hic","tenetur","a","sapiente","delectus,","aut","reiciendis","voluptatibus","maiores","alias","consequatur","aut","perferendis","doloribus","asperiores","repellat"];
+                var randy = Math.floor(Math.random()*(max - min)) + min;
+                var result = "";
+                for(i = 0; i < randy; i++) {
+                    var newTxt = words[Math.floor(Math.random() * (words.length - 1))];
+                    if (
+                        result.substring(result.length-1,result.length) == "." ||
+                        result.substring(result.length-1,result.length) == "?"
+                    ) {
+                        newTxt = newTxt.substring(0,1).toUpperCase() + newTxt.substring(1, newTxt.length);
+                    }
+                    result += " " + newTxt;
+                }
+                var el = document.createElement('div');
+                el.setAttribute('class', 'lorem-ipsum');
+                el.appendChild(document.createTextNode(result));
+                return el;
+            }
+        </script>
+        <script type="module" src="panda.js"></script>
+        <style>
+            body{
+                margin:0px;
+                background-color: #white;
+            }
+            ex-panda-list{
+                color: #white;
+                background-color: #990099 !important;
+            }
+            ex-panda-item{
+                text-align: center;
+                font-size: 2em;
+                font-family: 'Courier'
+            }
+            ex-panda-item div, ex-panda-item table{
+                text-align: left;
+            }
+            ex-panda-item > *{
+                font-size: 0.5em;
+            }
+            .lorem-ipsum{
+                margin: 40px;
+                font-size: 16px;
+            }
+        </style>
+        <script>
+            window.whenReady = function(){
+                return;
+                var root = document.getElementById('list-root');
+
+                var list = document.createElement('ex-panda-group');
+                list.setAttribute('name', 'OMG, I\'m in your groupz arranging your itemz');
+
+                var child;
+                for(var lcv=0; lcv< 5; lcv++){
+                    child = document.createElement('ex-panda-item');
+                    child.setAttribute('name', 'Group Item '+(lcv+1));
+                    child.appendChild(loremIpsum());
+                    list.appendChild(child);
+                }
+
+                root.appendChild(list);
+            }
+        </script>
+    </head>
+    <body onload="whenReady()">
+        <div style="background-color: #990099">
+            <ex-panda-list id="list-root" orientation="vertical">
+                <ex-panda-item name="Independent Item"><span>Stuff</span></ex-panda-item>
+                <ex-panda-group name="Some irrelevant group name" bg="#555555" threshold="1">
+                    <ex-panda-item name="The Item Title">
+                        <h4>An example table <a href="http://wikipedia.com">with a link</a></h4>
+                        <div style="display:inline-block">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">The table header</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>The table body</td>
+                                        <td>with two columns</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </ex-panda-item>
+                    <ex-panda-item name="Another Title"><span>Another Description</span></ex-panda-item>
+                </ex-panda-group>
+                <ex-panda-item name="Independent Item"><span>Stuff</span></ex-panda-item>
+            </ex-panda-list>
+        </div>
+    </body>
+</html>
