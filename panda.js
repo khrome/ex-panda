@@ -176,11 +176,12 @@ export const ExPandaGroup = {
   name: property('something'),
   bg: property('grey'),
   bg_size: property(''),
+  font: property(''),
   color: property('black'),
   threshold: property(4),
   host: parent(el => (el === ExPandaList) || (el === ExPandaGroup)),
   items: children(ExPandaItem),
-  render: ({ name, list, bg, color, items, threshold, bg_size }) => html`
+  render: ({ name, list, bg, color, items, threshold, bg_size, font }) => html`
     <style>
         ul{
             padding:0px;
@@ -207,6 +208,7 @@ export const ExPandaGroup = {
         .header{
             background : ${bg};
             ${bg_size && 'background-size:'+bg_size};
+            ${font && 'font:'+font};
             color : ${color};
             border: 1px solid ${bg};
             height :2em;
@@ -215,6 +217,7 @@ export const ExPandaGroup = {
         .terminal{
             background : ${bg};
             ${bg_size && 'background-size:'+bg_size};
+            ${font && 'font:'+font};
             color : ${color};
             border: 1px solid ${bg};
             height :1.5em;
