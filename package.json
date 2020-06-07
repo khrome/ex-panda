@@ -1,6 +1,6 @@
 {
   "name": "ex-panda",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "main": "panda.js",
   "description": "An expanding list as a WebComponent",
   "keywords": [

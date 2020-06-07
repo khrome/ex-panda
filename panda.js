@@ -8,7 +8,19 @@ var property = require('hybrids').property;
 var stack = [];
 
 export function toggleItem(host){
-  host.expanded = !host.expanded;
+  if(host.href){
+      if(host.href.indexOf('://')){
+          window.location = host.href;
+      }else{
+          if(host.href[0] === '#'){
+
+          }else{
+
+          }
+      }
+  }else{
+    host.expanded = !host.expanded;
+  }
 }
 
 function getInternalEventTarget(event){
@@ -43,6 +55,7 @@ export const ExPandaItem = {
   name: property('just a test'),
   expanded: property(false),
   contracting: false,
+  href: property(''),
   extra_classes: ({expanded, contracting}) =>
     ((expanded && 'expanded') || 'contracted')+
     ' '+((contracting && 'trxing') || 'trxed' ),
@@ -75,6 +88,8 @@ export const ExPandaItem = {
               border-width : 1px 0px 0px 0px;
               background: #ffffff;
               width : 100%;
+              line-height: 2em;
+              cursor:pointer;
               background: -webkit-linear-gradient(rgba(255,255,255,0.5) 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.5) 100%);
           }
           .ex-panda-details{
@@ -177,11 +192,12 @@ export const ExPandaGroup = {
   bg: property('grey'),
   bg_size: property(''),
   font: property(''),
+  back_font: property(''),
   color: property('black'),
   threshold: property(4),
   host: parent(el => (el === ExPandaList) || (el === ExPandaGroup)),
   items: children(ExPandaItem),
-  render: ({ name, list, bg, color, items, threshold, bg_size, font }) => html`
+  render: ({ name, list, bg, color, items, threshold, bg_size, font, back_font }) => html`
     <style>
         ul{
             padding:0px;
@@ -211,16 +227,18 @@ export const ExPandaGroup = {
             ${font && 'font:'+font};
             color : ${color};
             border: 1px solid ${bg};
-            height :2em;
+            height :1em;
+            padding : 0.4em;
         }
 
         .terminal{
             background : ${bg};
             ${bg_size && 'background-size:'+bg_size};
-            ${font && 'font:'+font};
+            ${(back_font && 'font:'+back_font) || (font && 'font:'+font)};
             color : ${color};
             border: 1px solid ${bg};
-            height :1.5em;
+            height :0.9em;
+            padding : 0.3em;
         }
 
         a, a:link, a:visited, a:focus, a:hover, a:active{
@@ -237,12 +255,10 @@ export const ExPandaGroup = {
         }
 
         .header-container{
-            height :2em;
             width :100%;
         }
 
         .terminal-container{
-            height :1.5em;
             width : 100%;
         }
 
@@ -257,16 +273,13 @@ export const ExPandaGroup = {
             </div>
         </li>
         <slot></slot>
-        <li class="terminal-container">
-            <div class="terminal">=
-                ${items.length > threshold && html`
+        ${items.length > threshold && html`
+            <li class="terminal-container">
+                <div class="terminal">
                     <span class="icon">⇧</span><a href="">back to group</a>
-                `}
-                ${items.length <= threshold && html`
-                    <div style="display:inline-block; width: 5px; height: 5px"></div>
-                `}
-            </div>
-        </li>
+                </div>
+            </li>
+        `}
     </ul>
   `,
 };
